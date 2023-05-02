@@ -11,8 +11,8 @@ export default defineConfig({
   test: {
     include: ["src/test/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     coverage: {
-      provider: "istanbul"
-    }
+      provider: "istanbul",
+    },
   },
   plugins: [react()],
   css: {
@@ -24,5 +24,13 @@ export default defineConfig({
         postcssPresetEnv(),
       ],
     },
+  },
+  resolve: {
+    alias: [
+      {
+        find: /^@mui\/icons-material\/(.*)/,
+        replacement: "@mui/icons-material/esm/$1",
+      },
+    ],
   },
 });

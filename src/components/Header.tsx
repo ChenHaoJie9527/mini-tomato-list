@@ -5,7 +5,7 @@ interface HeaderProps {
   size: number;
 }
 
-function HeaderIcon() {
+function HeaderRegisterAndLogin() {
   return (
     <div className="headerIcon pr-2 pl-2">
       <div className="">
@@ -24,7 +24,7 @@ function HeaderIcon() {
 const Header: FC<HeaderProps> = ({ content, size }) => {
   return (
     <div className="border-solid border-[#eee] border-b-[1px] h-[40px] flex items-center">
-      <HeaderIcon />
+      <HeaderRegisterAndLogin />
     </div>
   );
 };
