@@ -1,9 +1,11 @@
-import type { FC } from "react";
+import { FC, useState } from "react";
 import "../styles/Header.css";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import { TomatoDialog } from "../common";
 
 interface HeaderProps {
   content: string;
@@ -11,18 +13,32 @@ interface HeaderProps {
 }
 
 function HeaderRegisterAndLogin() {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="headerIcon pr-2 pl-2">
-      <div className="">
-        <span className="cursor-pointer hover:text-[pink] text-[red]">
-          登录
-        </span>
-        <span className="pr-1 pl-1 text-[red]">|</span>
-        <span className="cursor-pointer text-[red] hover:text-[pink]">
-          注册
-        </span>
+    <>
+      <div className="headerIcon pr-2 pl-2">
+        <div className="flex items-center">
+          <PermIdentityOutlinedIcon
+            className="mr-2 cursor-pointer hover:bg-[antiquewhite] transition-all"
+            onClick={() => setOpen(true)}
+          />
+          <span
+            className="cursor-pointer hover:bg-[antiquewhite] transition-all text-[red]"
+            onClick={() => setOpen(true)}
+          >
+            登录
+          </span>
+          <span className="pr-1 pl-1 text-[red]">|</span>
+          <span
+            className="cursor-pointer text-[red] hover:bg-[antiquewhite] transition-all"
+            onClick={() => setOpen(true)}
+          >
+            注册
+          </span>
+        </div>
       </div>
-    </div>
+      <TomatoDialog open={open} setOpen={setOpen} />
+    </>
   );
 }
 
