@@ -24,6 +24,8 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
   const [password, setPasswordVal] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [helperTextVal, setHelperTextVal] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordHelperText, setPasswordHelperText] = useState("");
 
   const onReset = () => {
     setOpen(false);
@@ -31,6 +33,8 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
     setPasswordVal("");
     setHelperTextVal("");
     setEmailError(false);
+    setPasswordError(false);
+    setPasswordHelperText("");
   };
 
   const onClose = () => {
@@ -56,7 +60,18 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
         setEmailError(false);
       }
     }
-  }, [emailVal]);
+    if (password) {
+      const reg = /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/; // 最少6位 包括至少1个大写字母 1个小写字母 1个数字 1个特殊字符 Kd@qq.com
+      
+      if (!reg.test(password)) {
+        setPasswordError(true);
+        setPasswordHelperText("password is not valid");
+      } else {
+        setPasswordError(false);
+        setPasswordHelperText("");
+      }
+    }
+  }, [emailVal, password]);
 
   return (
     <Dialog
@@ -87,7 +102,6 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
             color="tomato"
             helperText={helperTextVal}
             error={emailError}
-            FormHelperTextProps={{ color: "red" }}
           ></TextField>
           <TextField
             fullWidth
@@ -102,6 +116,8 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
             autoComplete="off"
             margin="dense"
             color="tomato"
+            error={passwordError}
+            helperText={passwordHelperText}
           ></TextField>
         </DialogContentText>
       </DialogContent>
