@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -22,16 +22,42 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("md"));
   const [emailVal, setEmailVal] = useState("");
   const [password, setPasswordVal] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [helperTextVal, setHelperTextVal] = useState("");
+
+  const onReset = () => {
+    setOpen(false);
+    setEmailVal("");
+    setPasswordVal("");
+    setHelperTextVal("");
+    setEmailError(false);
+  };
 
   const onClose = () => {
-    setOpen(false);
+    onReset();
   };
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailVal(e.target.value);
+    const value = e.target.value;
+    setEmailVal(value);
   };
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordVal(e.target.value);
-  }
+  };
+
+  useEffect(() => {
+    if (emailVal) {
+      const reg =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!reg.test(emailVal)) {
+        setHelperTextVal("email is not valid");
+        setEmailError(true);
+      } else {
+        setHelperTextVal("");
+        setEmailError(false);
+      }
+    }
+  }, [emailVal]);
+
   return (
     <Dialog
       fullScreen={fullScreen}
@@ -58,7 +84,10 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
             required
             autoComplete="off"
             margin="dense"
-            color={"tomato"}
+            color="tomato"
+            helperText={helperTextVal}
+            error={emailError}
+            FormHelperTextProps={{ color: "red" }}
           ></TextField>
           <TextField
             fullWidth
@@ -72,7 +101,7 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
             required
             autoComplete="off"
             margin="dense"
-            color={"tomato"}
+            color="tomato"
           ></TextField>
         </DialogContentText>
       </DialogContent>
