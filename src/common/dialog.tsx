@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,9 @@ import {
   Button,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import tomatoLog from "../assets/tomato.png?url";
+import { TextField } from "@mui/material";
+import React from "react";
 
 interface DialogProps {
   open: boolean;
@@ -17,23 +20,60 @@ interface DialogProps {
 
 export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("md"));
+  const [emailVal, setEmailVal] = useState("");
+  const [password, setPasswordVal] = useState("");
+
   const onClose = () => {
     setOpen(false);
   };
+  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailVal(e.target.value);
+  };
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordVal(e.target.value);
+  }
   return (
     <Dialog
       fullScreen={fullScreen}
       open={open}
       onClose={onClose}
       aria-aria-labelledby="responsive-dialog-title"
+      maxWidth={"xs"}
+      fullWidth
     >
-      <DialogTitle id="tomato_id_dialog">
-        {"Use Google's location service?"}
-      </DialogTitle>
       <DialogContent>
+        <DialogTitle className="flex items-center justify-center">
+          <img className="w-16" src={tomatoLog} alt="" />
+        </DialogTitle>
         <DialogContentText>
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
+          <TextField
+            fullWidth
+            value={emailVal}
+            onChange={onEmailChange}
+            id="email"
+            label="email"
+            variant="standard"
+            placeholder="Please enter the email address"
+            size="small"
+            required
+            autoComplete="off"
+            margin="dense"
+            color={"tomato"}
+          ></TextField>
+          <TextField
+            fullWidth
+            value={password}
+            onChange={onPasswordChange}
+            id="password"
+            label="password"
+            variant="standard"
+            placeholder="Please enter the password"
+            size="small"
+            required
+            autoComplete="off"
+            margin="dense"
+            color={"tomato"}
+          ></TextField>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
