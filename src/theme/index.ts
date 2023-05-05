@@ -16,6 +16,7 @@ export const theme = createTheme({
     tomato: {
       main: "#ea5e57",
       darker: "#ea5e57",
+      contrastText: "#fff",
     },
   },
 });

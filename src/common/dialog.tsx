@@ -7,6 +7,7 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Box,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import tomatoLog from "../assets/tomato.png?url";
@@ -61,8 +62,9 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
       }
     }
     if (password) {
-      const reg = /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/; // 最少6位 包括至少1个大写字母 1个小写字母 1个数字 1个特殊字符 Kd@qq.com
-      
+      const reg =
+        /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/; // 最少6位 包括至少1个大写字母 1个小写字母 1个数字 1个特殊字符 Kd@qq.com
+
       if (!reg.test(password)) {
         setPasswordError(true);
         setPasswordHelperText("password is not valid");
@@ -82,7 +84,7 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
       maxWidth={"xs"}
       fullWidth
     >
-      <DialogContent>
+      <DialogContent className="!pt-10 !pl-10 !pr-10">
         <DialogTitle className="flex items-center justify-center">
           <img className="w-16" src={tomatoLog} alt="" />
         </DialogTitle>
@@ -121,13 +123,20 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
           ></TextField>
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={onClose}>
-          Disagree
-        </Button>
-        <Button onClick={onClose} autoFocus>
-          Agree
-        </Button>
+      <DialogActions className="!justify-center !p-10">
+        <Box className="flex flex-col items-center w-full">
+          <Button
+            variant="contained"
+            color="tomato"
+            className="w-full"
+            fullWidth
+            size={"medium"}
+            onClick={onClose}
+          >
+            登录
+          </Button>
+          <Button color="info">忘记密码?</Button>
+        </Box>
       </DialogActions>
     </Dialog>
   );
