@@ -1,0 +1,9 @@
+.__3d {
+  transform-style: preserve-3d;
+  perspective: 500px;
+}
+
+.__3d_content {
+  transform-style: preserve-3d;
+  transition: all 0.1s;
+}
