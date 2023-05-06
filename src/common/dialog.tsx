@@ -80,7 +80,7 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
       fullScreen={fullScreen}
       open={open}
       onClose={onClose}
-      aria-aria-labelledby="responsive-dialog-title"
+      aria-labelledby="responsive-dialog-title"
       maxWidth={"xs"}
       fullWidth
     >
@@ -88,7 +88,7 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
         <DialogTitle className="flex items-center justify-center">
           <img className="w-16" src={tomatoLog} alt="" />
         </DialogTitle>
-        <DialogContentText>
+        <DialogContentText component="div">
           <TextField
             fullWidth
             value={emailVal}
@@ -124,7 +124,7 @@ export const TomatoDialog: FC<DialogProps> = ({ open, setOpen }) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions className="!justify-center !p-10">
-        <Box className="flex flex-col items-center w-full">
+        <Box component={"div"} className="flex flex-col items-center w-full">
           <Button
             variant="contained"
             color="tomato"
